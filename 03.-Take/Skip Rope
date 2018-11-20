@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class takeSipRope {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        String text = input.nextLine();
+        List<Integer> numbers= new ArrayList<>();
+        List<Character> chars = new ArrayList<>();
+        for (int i = 0; i < text.length(); i++) {
+            if (text.charAt(i) >= 48 && text.charAt(i) <= 57){
+                int num = text.charAt(i) - 48;
+                numbers.add(num);
+            }else{
+                char letter = text.charAt(i);
+                chars.add(letter);
+            }
+        }
+        List<Integer> takeList = new ArrayList<>();
+        List<Integer> skipList = new ArrayList<>();
+        for (int i = 0; i < numbers.size(); i++) {
+            if (i % 2 == 0){
+                takeList.add(numbers.get(i));
+            }else{
+                skipList.add(numbers.get(i));
+            }
+        }
+        int skip = 0;
+        List<Character> result = new ArrayList<>();
+        for (int i = 0; i < skipList.size(); i++) {
+                for (int j = skip; j < skip + takeList.get(i); j++) {
+                    if (j >= chars.size()){
+                        break;
+                    }
+                    result.add(chars.get(j));
+                }
+            skip += skipList.get(i)+ takeList.get(i);
+        }
+
+        result.forEach(e -> System.out.print(e));
+    }
+}
